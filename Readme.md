@@ -1,10 +1,14 @@
-<img width="1280" height="680" alt="tv_banner" src="https://github.com/user-attachments/assets/c2635d13-faee-42ee-ad49-9b694a8d4a22" />
+<img width="640" height="340" alt="tv_banner" src="https://github.com/user-attachments/assets/c2635d13-faee-42ee-ad49-9b694a8d4a22" />
 
 # Url Chat Cast
 
 A basic functionality that the entire apps industry hasn't managed to generically provide us in all its decades:
 
-Cast links from any device, using your own chat apps, to any Android 11+ device or TV that runs this app. Url Chat Cast forwards the URL when it gets the command via any whitelisted app's public OS notification. Options: choice popup, auto-open, web browser vs builtin app, no-defaults OS-choice. No servers, no transmission protocols, no redirects, no network or internet, no narrow proprietary ecosystems.
+Cast links from any device, using your own chat apps, to any Android 11+ device or TV that runs this app. Url Chat Cast forwards the URL when it gets the command via any whitelisted app's public OS notification. 
+
+Options: choice popup, auto-open, web browser vs builtin app, no-defaults OS-choice. 
+
+No servers, no transmission protocols, no redirects, no network or internet, no narrow proprietary ecosystems.
 
 This repo is a basic kotlin gradle project, tweaked, tested, iterated, read-through, architected by [me](https://github.com/tdbe) but slopped using Qwen 3.8 Flash Next 180B a6B Q4. Provided for free as-is, to solve my problem of just casting any links to my tv, from any device, in 2026, wtf.
 
