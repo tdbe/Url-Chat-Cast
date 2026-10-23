@@ -2,9 +2,7 @@
 
 # Url Chat Cast
 
-A basic functionality that the entire apps industry hasn't managed to generically provide us in all its decades:
-
-Cast links from any device, using your own chat apps, to any Android 11+ device or TV that runs this app. Url Chat Cast forwards the URL when it gets the command via any whitelisted app's public OS notification. 
+Cast links from any device, using your own chat apps, to any Android 11+ device or TV that runs this app. Url Chat Cast forwards the URL when it gets the command via any whitelisted app's public OS notification. A basic functionality that the entire apps industry hasn't managed to generically provide us in all its decades.
 
 Options: choice popup, auto-open, web browser vs builtin app, no-defaults OS-choice. 
 
