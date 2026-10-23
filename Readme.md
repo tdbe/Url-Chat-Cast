@@ -26,9 +26,11 @@ Open this folder in Android Studio, have some target sdk installed e.g. 36 (whic
 
 ## Permissions and queries
 
-No unnecessary parmissions, nothing used other than the OS API to read non-private notifications in Android's notification drawer.
+- No unnecessary parmissions, nothing used other than the OS API to read non-private notifications in Android's notification drawer.
 
-The app responds to notification received events, but to trigger the android system popup and/or open the links (which is a Foreground action), I'm also using the Overlay (`SYSTEM_ALERT_WINDOW`) permission. The only Android 11+ and also TV-compatible options to auto-start a Foreground action, are either: this Overlay alert, the Accessibility Service apps (the kind that read your screen), or the ugly Leanback Launcher Recommendation Cards (TV-only, depend on stock launcher).
+- In case you don't believe I'm  not doing anything funny e.g. wrapping urls like twitter does, and you can't read code, you can install [Untrack Me](https://f-droid.org/packages/app.fedilab.nitterizeme/) as a browser to receive the urls from my app, and you'll see there's no redirect business going on.
+
+- The app responds to notification received events, but to trigger the android system popup and/or open the links (which is a Foreground action), I'm also using the Overlay (`SYSTEM_ALERT_WINDOW`) permission. The only Android 11+ and also TV-compatible options to auto-start a Foreground action, are either: this Overlay alert, the Accessibility Service apps (the kind that read your screen), or the ugly Leanback Launcher Recommendation Cards (TV-only, depend on stock launcher).
 
 `app/src/main/AndroidManifest.xml` shows we only use:
 ```
