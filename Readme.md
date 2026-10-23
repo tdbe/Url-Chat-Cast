@@ -1,4 +1,15 @@
-<img width="640" height="340" alt="tv_banner" src="https://github.com/user-attachments/assets/c2635d13-faee-42ee-ad49-9b694a8d4a22" />
+<div align="center">
+
+<a href="https://github.com/squidowl/halloy">
+  <img width="640" height="340" alt="tv_banner" src="https://github.com/user-attachments/assets/c2635d13-faee-42ee-ad49-9b694a8d4a22" />
+
+</a>
+<a href="https://github.com/hecrj/icebreaker">
+  <img width="340" alt="Screenshot_202610406" src="https://github.com/user-attachments/assets/68eadab3-1fb2-4514-b2ad-08f102ddf7de" />
+</a>
+
+</div>
+
 
 # Url Chat Cast
 
