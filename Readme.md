@@ -6,7 +6,7 @@ Cast links from any device, using your own chat apps, to any Android 11+ device 
 
 Options: choice popup, auto-open, web browser vs builtin app, no-defaults OS-choice. 
 
-No servers, no transmission protocols, no redirects, no network or internet, no narrow proprietary ecosystems.
+No servers, no transmission protocols, no redirects, no network or internet, no narrow / proprietary ecosystems.
 
 This repo is a basic kotlin gradle project, tweaked, tested, iterated, read-through, architected by [me](https://github.com/tdbe) but slopped using Qwen 3.8 Flash Next 180B a6B Q4. Provided for free as-is, to solve my problem of just casting any links to my tv, from any device, in 2026, wtf.
 
@@ -32,16 +32,16 @@ The app responds to notification received events, but to trigger the android sys
 
 `app/src/main/AndroidManifest.xml` shows we only use:
 ```
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-	<!-- The SpecialUse is the Type of foreground service. It's a catch-all designation in Android 14 and higher for valid long-running foreground tasks that do not fit into any of the standard types (such as location, mediaPlayback, camera, or dataSync)-->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<!-- The SpecialUse is the Type of foreground service. It's a catch-all designation in Android 14 and higher for valid long-running foreground tasks that do not fit into any of the standard types (such as location, mediaPlayback, camera, or dataSync)-->
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 	
-	<intent>
-		<action android:name="android.intent.action.VIEW" />
-		<data android:scheme="https" />
-	</intent>
+<intent>
+	<action android:name="android.intent.action.VIEW" />
+	<data android:scheme="https" />
+</intent>
 	
-	android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"	
+android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"	
 ```
