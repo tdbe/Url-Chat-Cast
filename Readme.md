@@ -8,7 +8,7 @@ Options: choice popup, auto-open, web browser vs builtin app, no-defaults OS-cho
 
 No servers, no transmission protocols, no redirects, no network or internet, no narrow / proprietary ecosystems.
 
-This repo is a basic kotlin gradle project, tweaked, tested, iterated, read-through, architected by [me](https://github.com/tdbe) but slopped using Qwen 3.8 Flash Next 180B a6B Q4. Provided for free as-is, to solve my problem of just casting any links to my tv, from any device, in 2026, wtf.
+This repo is a basic kotlin gradle project, tweaked, tested, iterated, read-through, architected by [me](https://github.com/tdbe) but slopped using Qwen 3.8 Flash Next 180B a6B Q4. Provided openly for free as-is, since nobody else did, in 2026, wtf.
 
 ## Trigger
 
