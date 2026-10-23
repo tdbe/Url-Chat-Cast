@@ -29,7 +29,7 @@ The app expects one url containing "://" to be found after the trigger text you 
 
 ## Install
 
-Get the latest Release .apk file from the releases section and put it on your device / TV and tap it to install. You can also use the Obtainium / ObtainX "store" to track it and install from there. (but there's not much need for updates for such base and well defined functionality)
+Get the latest Release .apk file from the releases section and put it on the RECEIVING device (e.g. the android TV) and tap it to install. You can also use the Obtainium / ObtainX "store" to track it and install from there. (but there's not much need for updates for such base and well defined functionality)
 
 ## Build It Yourself
 
