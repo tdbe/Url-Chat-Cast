@@ -17,6 +17,7 @@ class PopupActivity : Activity() {
         // Focus highlight look — tweak freely.
         private const val HIGHLIGHT_INSET_DP = 2f     // gap between button bounds and the purple rect
         private const val HIGHLIGHT_RADIUS_DP = 4f    // corner radius of the purple rect
+        private const val HIGHLIGHT_TEXT_PADDING_DP = 16f  // text left/right padding when highlighted
         private const val HIGHLIGHT_COLOR = 0xFF6200EE.toInt()
         private const val HIGHLIGHT_TEXT = 0xFFFFFFFF.toInt()
 
@@ -106,6 +107,7 @@ class PopupActivity : Activity() {
     private fun Button.focusHighlight() {
         val normalBg = background
         val normalText = textColors
+        val normalPadding = intArrayOf(paddingLeft, paddingTop, paddingRight, paddingBottom)
         fun apply(has: Boolean) {
             if (has) {
                 val d = resources.displayMetrics.density
@@ -117,9 +119,14 @@ class PopupActivity : Activity() {
                     },
                     (HIGHLIGHT_INSET_DP * d).toInt())
                 setTextColor(HIGHLIGHT_TEXT)
+                // Swapping the background drops the nine-patch's built-in content padding,
+                // so give the text its own breathing room while highlighted.
+                val hpad = (HIGHLIGHT_TEXT_PADDING_DP * d).toInt()
+                setPadding(hpad, normalPadding[1], hpad, normalPadding[3])
             } else {
                 background = normalBg
                 setTextColor(normalText)
+                setPadding(normalPadding[0], normalPadding[1], normalPadding[2], normalPadding[3])
             }
         }
         setOnFocusChangeListener { _, has -> apply(has) }
