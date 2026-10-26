@@ -150,6 +150,18 @@ class MainActivity : Activity() {
         }
         col.addView(autoOpenAppBox)
 
+        col.addView(CheckBox(this).apply {
+            text = "Clear command notifications after opening URLs"
+            isChecked = Prefs.clearNotifications(this@MainActivity)
+            setOnCheckedChangeListener { _, v ->
+                Prefs.setClearNotifications(this@MainActivity, v)
+            }
+        })
+        col.addView(TextView(this).apply {
+            textSize = 12f
+            text = "It's best to clear previous command notifications because some apps and devices may group or order older notifications wrong, and I won't make this app keep an internal log of what links we already visited."
+        })
+
         addSpacer()
         col.addView(Button(this).apply {
             text = "Simulate receiving a notification"

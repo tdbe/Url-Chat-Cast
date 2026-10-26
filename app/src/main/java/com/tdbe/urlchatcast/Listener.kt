@@ -15,11 +15,15 @@ class Listener : NotificationListenerService() {
     companion object {
         private const val FG_ID = 1
         private const val FG_CHANNEL = "listening"
+
+        // So PopupActivity (not a service itself) can clear notifications after opening a URL.
+        @Volatile var instance: Listener? = null
     }
 
     private var lastKey: String? = null
 
     override fun onListenerConnected() {
+        instance = this
         val nm = getSystemService(NotificationManager::class.java)
         nm.createNotificationChannel(
             NotificationChannel(FG_CHANNEL, "Listening", NotificationManager.IMPORTANCE_LOW)
@@ -38,7 +42,27 @@ class Listener : NotificationListenerService() {
     }
 
     override fun onListenerDisconnected() {
+        if (instance === this) instance = null
         try { stopForeground(STOP_FOREGROUND_REMOVE) } catch (_: Exception) { }
+    }
+
+    /** Dismiss active notifications from watched apps that match the trigger pattern.
+     * If we don't do this you may sometimes find you're opening an older / oldest command url instead of the newest.
+     * And I don't want to make this app hold a log of what links you visited.*/
+    fun clearMatchedNotifications() {
+        if (!Prefs.clearNotifications(this)) return
+        val pattern = Prefs.getPattern(this)
+        val watched = Prefs.getWatchedPackages(this)
+        val active = try { activeNotifications } catch (_: Exception) { null } ?: return
+        for (sbn in active) {
+            if (sbn.packageName !in watched) continue
+            val extras = sbn.notification.extras
+            val text = listOfNotNull(
+                extras.getCharSequence(Notification.EXTRA_TEXT),
+                extras.getCharSequence(Notification.EXTRA_BIG_TEXT)
+            ).joinToString("\n")
+            if (Urls.extract(text, pattern) != null) cancelNotification(sbn.key)
+        }
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
@@ -65,6 +89,7 @@ class Listener : NotificationListenerService() {
         val browser = Urls.browserPackage(pm)
         val app = Urls.appPackageFor(pm, url, browser)
 
+        clearMatchedNotifications()
         if (Prefs.autoOpen(this)) {
             val pkg = if (Prefs.autoOpenUseApp(this)) app ?: browser else browser
             openUrl(url, pkg)
@@ -74,15 +99,16 @@ class Listener : NotificationListenerService() {
         }
     }
 
-    private fun openUrl(url: String, pkg: String?) {
+    private fun openUrl(url: String, pkg: String?): Boolean {
         val i = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             if (pkg != null) setPackage(pkg)
         }
         // No default browser set: show the "Open with" dialog like a normal link tap.
-        try {
+        return try {
             startActivity(if (pkg == null)
                 Intent.createChooser(i, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else i)
-        } catch (_: Exception) { }
+            true
+        } catch (_: Exception) { false }
     }
 }
