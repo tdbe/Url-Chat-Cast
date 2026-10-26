@@ -40,6 +40,8 @@ class PopupActivity : Activity() {
         val url = intent.getStringExtra(EXTRA_URL) ?: run { finish(); return }
         val browser = intent.getStringExtra(EXTRA_BROWSER)
         val app = intent.getStringExtra(EXTRA_APP)
+        // YouTube links: prefer the dedicated app button for the D-pad flow.
+        val youtube = url.lowercase().let { it.contains(".youtube.") || it.contains("://youtube.") || it.contains("://youtu.") || it.contains(".youtu.")}
 
         val pad = (12 * resources.displayMetrics.density).toInt()
 
@@ -69,18 +71,22 @@ class PopupActivity : Activity() {
 
         if (app != null) {   // hidden when no dedicated app handles this URL
             addStyled(Button(this).apply {
-                text = "Open in\ndefault browser"
-                setOnClickListener { openAndFinish(url, browser) }
-                requestFocus()   // D-pad friendly on TV
-            }, row, true)
-            addStyled(Button(this).apply {
                 text = "Open in\ndefault app"
                 setOnClickListener { openAndFinish(url, app) }
+                // TODO: why doesn't this work? The OS kinda decides based on the last action of a pointer device or lackthereof.
+                if (youtube) requestFocus()    // YouTube: the app is the better target
+            }, row, true)
+            addStyled(Button(this).apply {
+                text = "Open in\ndefault browser"
+                setOnClickListener { openAndFinish(url, browser) }
+                // TODO: why doesn't this work? The OS kinda decides based on the last action of a pointer device or lackthereof.
+                if (!youtube) requestFocus()   // D-pad friendly on TV
             }, row, true)
         } else {
             addStyled(Button(this).apply {
                 text = "Open in\ndefault browser"
                 setOnClickListener { openAndFinish(url, browser) }
+                // TODO: why doesn't this work? The OS kinda decides based on the last action of a pointer device or lackthereof.
                 requestFocus()   // D-pad friendly on TV
             }, row, false)
             /*
@@ -141,8 +147,9 @@ class PopupActivity : Activity() {
             if (pkg != null) setPackage(pkg)
         }
         // No default browser set: show the "Open with" dialog like a normal link tap.
-        try { startActivity(if (pkg == null) Intent.createChooser(i, null) else i) }
-        catch (_: Exception) { }
+        try {
+            startActivity(if (pkg == null) Intent.createChooser(i, null) else i)
+        } catch (_: Exception) { }
         finish()
     }
 }
